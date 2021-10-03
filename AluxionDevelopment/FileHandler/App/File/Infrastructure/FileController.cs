@@ -70,5 +70,12 @@ namespace FileHandler.Controllers
       var user = this.userService.GetUserByClaim(this.User);
       return await this.service.UploadFile(file, user);
     }
+
+    [HttpPost("upload/external")]
+    public async ValueTask<FileItemResponse> UploadExternalFileToS3(UploadFileDto file)
+    {
+      var user = this.userService.GetUserByClaim(this.User);
+      return await this.service.UploadExternalFile(file, user);
+    }
   }
 }

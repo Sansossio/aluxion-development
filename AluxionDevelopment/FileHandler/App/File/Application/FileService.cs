@@ -5,6 +5,7 @@ using FileHandler.Models;
 using FileHandler.Dto;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using RestSharp;
 
 namespace FileHandler.Services
 {
@@ -51,6 +52,27 @@ namespace FileHandler.Services
       File newFile = new File
       {
         Name = file.FileName,
+        Path = filePath,
+        UserId = user.ID
+      };
+      var newnewfile = this.dbContext.Files.Add(newFile);
+      this.dbContext.SaveChanges();
+
+      return this.GetById(newFile.ID);
+    }
+
+    public async ValueTask<FileItemResponse> UploadExternalFile(UploadFileDto file, User user)
+    {
+      var client = new RestClient(file.FileUrl);
+      var request = new RestRequest(Method.GET);
+      var fileData = client.DownloadData(request);
+      var filename = file.FileUrl.Split('/').Last();
+      var memoryStream = new System.IO.MemoryStream(fileData);
+
+      string filePath = await s3.Upload($"{Guid.NewGuid()}", memoryStream);
+      File newFile = new File
+      {
+        Name = filename,
         Path = filePath,
         UserId = user.ID
       };
