@@ -23,6 +23,10 @@ namespace FileHandler.Controllers
       this.service = service;
     }
 
+    /// <summary>
+    /// Search an image on Unsplash
+    /// </summary>
+    /// <param name="data"></param> 
     [HttpGet("search")]
     [AllowAnonymous]
     public async Task<List<ExternalImage>> Search ([FromQuery] GetImagesQuery data)

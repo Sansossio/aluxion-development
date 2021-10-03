@@ -30,6 +30,9 @@ namespace FileHandler.Controllers
       this.s3 = s3;
     }
 
+    /// <summary>
+    /// List all of the files uploaded by the current user.
+    /// </summary>
     [HttpGet("list")]
     public List<FileItemResponse> FilesList()
     {
@@ -37,6 +40,11 @@ namespace FileHandler.Controllers
       return this.service.GetFilesByUser(user);
     }
 
+    /// <summary>
+    /// Patch a file.
+    /// </summary>
+    /// <param name="id"></param> 
+    /// <param name="data"></param> 
     [HttpPatch("{id}")]
     public FileItemResponse UpdateName(int id, UpdateFileName data)
     {
@@ -44,12 +52,20 @@ namespace FileHandler.Controllers
       return this.service.UpdateName(id, data.Name, user);
     }
 
+    /// <summary>
+    /// Get a file by id.
+    /// </summary>
+    /// <param name="id"></param> 
     [HttpGet("{id}")]
     public FileItemResponse GetById(int id)
     {
       return this.service.GetById(id);
     }
 
+    /// <summary>
+    /// Download a file by id.
+    /// </summary>
+    /// <param name="id"></param> 
     [HttpGet("{id}/download")]
     [AllowAnonymous]
     public async Task DownloadById(int id)
@@ -62,6 +78,10 @@ namespace FileHandler.Controllers
       await Response.Body.FlushAsync();
     }
 
+    /// <summary>
+    /// Delete a file by id.
+    /// </summary>
+    /// <param name="id"></param> 
     [HttpDelete("{id}")]
     [AllowAnonymous]
     public void DeleteFile(int id)
@@ -70,6 +90,10 @@ namespace FileHandler.Controllers
       this.service.DeleteById(id, user);
     }
 
+    /// <summary>
+    /// Upload a file from your local machine.
+    /// </summary>
+    /// <param name="file"></param> 
     [HttpPost("upload")]
     public async ValueTask<FileItemResponse> UploadFileToS3(IFormFile file)
     {
@@ -77,6 +101,10 @@ namespace FileHandler.Controllers
       return await this.service.UploadFile(file, user);
     }
 
+    /// <summary>
+    /// Upload a file from a url.
+    /// </summary>
+    /// <param name="file"></param> 
     [HttpPost("upload/external")]
     public async ValueTask<FileItemResponse> UploadExternalFileToS3(UploadFileDto file)
     {

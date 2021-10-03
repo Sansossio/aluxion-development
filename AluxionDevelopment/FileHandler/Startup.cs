@@ -1,3 +1,5 @@
+using System.IO;
+using System.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +43,12 @@ namespace FileHandler
       services.AddControllers();
       services.AddSwaggerGen(c =>
         {
-          c.SwaggerDoc("v1", new OpenApiInfo { Title = "File Handler", Version = "v1" });
+          c.SwaggerDoc("v1", new OpenApiInfo
+          {
+            Title = "File Handler",
+            Description = "Aluxion development test written in c# | https://github.com/Sansossio/aluxion-development",
+            Version = "v1"
+          });
           c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
           {
             Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
@@ -62,12 +69,17 @@ namespace FileHandler
                 },
                 Scheme = "oauth2",
                 Name = "Bearer",
+                Description = "JWT Authorization header using the Bearer scheme",
                 In = ParameterLocation.Header,
 
               },
               new List<string>()
             }
           });
+          // Set the comments path for the Swagger JSON and UI.
+          var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+          var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+          c.IncludeXmlComments(xmlPath);
         });
 
       services.AddScoped<DatabaseContext>(_ => new DatabaseContext());
