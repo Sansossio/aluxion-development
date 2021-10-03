@@ -6,36 +6,51 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FileHandler.Models;
 using FileHandler.Dto;
-using FileHandler.Cryptography;
+using FileHandler.Auth;
 namespace FileHandler.Services
 {
   public class UserService
   {
-    private readonly DatabaseContext _context;
-    public UserService(DatabaseContext context)
+    private readonly DatabaseContext dbContext;
+    private readonly JwtAuthenticationService authService;
+
+    public UserService(DatabaseContext context, JwtAuthenticationService authService)
     {
-      _context = context;
+      this.dbContext = context;
+      this.authService = authService;
     }
 
     public List<User> UserList()
     {
-      return _context.Users.ToList();
+      return dbContext.Users.ToList();
     }
 
     public RegisterUserResponse Register (RegisterUser data) {
-      var exists = _context.Users.Where(x => x.Email == data.Email).Count() > 0;
+      var exists = dbContext.Users.Where(x => x.Email == data.Email).Count() > 0;
       if (exists) {
         throw new Exception("User already exists");
       }
       var finalPassword = Cryptography.Crypto.Encrypt(data.Password);
 
-      _context.Add(new User {
+      dbContext.Add(new User {
         Email = data.Email,
         Password = finalPassword
       });
-      _context.SaveChanges();
+      dbContext.SaveChanges();
+
       return new RegisterUserResponse {
         Success = true
+      };
+    }
+  
+    public LoginUserResponse Login (LoginUser data) {
+      var finalPassword = Cryptography.Crypto.Encrypt(data.Password);
+      var user = dbContext.Users.Where(x => x.Email == data.Email && x.Password == finalPassword).First();
+      if (user == null) {
+        throw new Exception("User does not exist");
+      }
+      return new LoginUserResponse {
+        Token = this.authService.Authenticate(user.ID)
       };
     }
   }

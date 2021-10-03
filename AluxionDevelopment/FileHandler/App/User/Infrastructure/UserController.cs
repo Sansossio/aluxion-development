@@ -26,5 +26,10 @@ namespace FileHandler.Controllers
     public RegisterUserResponse Register ([FromBody] RegisterUser data) {
       return this.service.Register(data);
     }
+
+    [HttpPost("login")]
+    public LoginUserResponse Login ([FromBody] LoginUser data) {
+      return this.service.Login(data);
+    }
   }
 }
