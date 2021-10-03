@@ -17,11 +17,17 @@ namespace FileHandler.Services
 
     public List<FileItemResponse> GetFilesByUser(User user)
     {
-      try {
-        var files = this.dbContext.Files.Where(x => x.UserId == user.ID).ToList();
-        return FileItemResponse.FromEntity(files);
-      } catch (Exception e) {
-        return new List<FileItemResponse>();
+      var files = this.dbContext.Files.Where(x => x.UserId == user.ID).ToList();
+      return FileItemResponse.FromEntity(files);
+    }
+
+    public void DeleteById(int id, User user)
+    {
+      var file = this.dbContext.Files.FirstOrDefault(x => x.ID == id && x.UserId == user.ID);
+      if (file != null)
+      {
+        this.dbContext.Files.Remove(file);
+        this.dbContext.SaveChanges();
       }
     }
   }

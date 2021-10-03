@@ -32,5 +32,11 @@ namespace FileHandler.Controllers
       var user = this.userService.GetUserByClaim(this.User);
       return this.service.GetFilesByUser(user);
     }
+
+    [HttpDelete("{id}")]
+    public void DeleteFile(int id) {
+      var user = this.userService.GetUserByClaim(this.User);
+      this.service.DeleteById(id, user);
+    }
   }
 }
