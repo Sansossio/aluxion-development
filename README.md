@@ -2,4 +2,10 @@
 
 ## File Handler
 
-To see details click [here](./TEST-DETAILS.md)
+To see test details click [here](./TEST-DETAILS.md)
+
+## Run
+### Run database
+```sh
+docker-compose up -d
+```
