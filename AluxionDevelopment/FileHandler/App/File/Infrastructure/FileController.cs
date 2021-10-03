@@ -44,7 +44,6 @@ namespace FileHandler.Controllers
       return this.service.UpdateName(id, data.Name, user);
     }
 
-    [HttpDelete]
     [HttpGet("{id}")]
     public FileItemResponse GetById(int id)
     {
