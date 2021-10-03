@@ -1,21 +1,22 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FileHandler.Dto 
+namespace FileHandler.Dto
 {
-  public class ForgotPassword 
+  public class ForgotPassword
   {
     [Required]
     [EmailAddress]
     public string Email { get; set; }
   }
 
-  public class ForgotPasswordResponse 
+  public class ForgotPasswordResponse
   {
     public bool Success { get; set; }
     public string Message { get; set; }
   }
 
-  public class SetNewPassword {
+  public class SetNewPassword
+  {
     [Required]
     [EmailAddress]
     public string Email { get; set; }
