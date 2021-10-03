@@ -42,6 +42,20 @@ namespace FileHandler.Services
       return FileItemResponse.FromEntity(this.dbContext.Files.FirstOrDefault(x => x.ID == id));
     }
 
+    public FileItemResponse UpdateName(int id, string name, User user)
+    {
+      var file = this.dbContext.Files.FirstOrDefault(x => x.ID == id && x.UserId == user.ID);
+      if (file == null || file.UserId != user.ID)
+      {
+        return null;
+      }
+
+      file.Name = name;
+      this.dbContext.SaveChanges();
+
+      return this.GetById(id);
+    }
+
     public async ValueTask<FileItemResponse> UploadFile(IFormFile file, User user)
     {
       var memoryStream = new System.IO.MemoryStream();

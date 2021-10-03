@@ -37,8 +37,15 @@ namespace FileHandler.Controllers
       return this.service.GetFilesByUser(user);
     }
 
+    [HttpPatch("{id}")]
+    public FileItemResponse UpdateName(int id, UpdateFileName data)
+    {
+      var user = this.userService.GetUserByClaim(this.User);
+      return this.service.UpdateName(id, data.Name, user);
+    }
+
+    [HttpDelete]
     [HttpGet("{id}")]
-    [AllowAnonymous]
     public FileItemResponse GetById(int id)
     {
       return this.service.GetById(id);
