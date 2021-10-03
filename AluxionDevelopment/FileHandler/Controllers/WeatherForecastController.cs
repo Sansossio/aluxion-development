@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using FileHandler.Models;
 
 namespace FileHandler.Controllers
 {
@@ -17,10 +18,18 @@ namespace FileHandler.Controllers
         };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly DatabaseContext _context;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, DatabaseContext context)
     {
       _logger = logger;
+      _context = context;
+    }
+
+    [HttpGet("test")]
+    public List<User> test()
+    {
+      return this._context.Users.ToList();
     }
 
     [HttpGet]
