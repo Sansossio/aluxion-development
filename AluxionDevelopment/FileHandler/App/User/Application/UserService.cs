@@ -51,10 +51,10 @@ namespace FileHandler.Services
     public LoginUserResponse Login(LoginUser data)
     {
       var finalPassword = Cryptography.Crypto.Encrypt(data.Password);
-      var user = dbContext.Users.Where(x => x.Email == data.Email && x.Password == finalPassword).First();
+      var user = dbContext.Users.Where(x => x.Email == data.Email && x.Password == finalPassword).FirstOrDefault();
       if (user == null)
       {
-        throw new Exception("User does not exist");
+        throw new Exception("Email or password are invalid");
       }
       return new LoginUserResponse
       {
@@ -65,12 +65,12 @@ namespace FileHandler.Services
     public User GetUserByClaim(ClaimsPrincipal currentUser)
     {
       var email = currentUser.FindFirst(ClaimTypes.Email).Value;
-      return dbContext.Users.Where(x => x.Email == email).First();
+      return dbContext.Users.Where(x => x.Email == email).FirstOrDefault();
     }
 
     public ForgotPasswordResponse ForgotPassword(ForgotPassword data)
     {
-      var user = dbContext.Users.Where(x => x.Email == data.Email).First();
+      var user = dbContext.Users.Where(x => x.Email == data.Email).FirstOrDefault();
       if (user == null)
       {
         throw new Exception("User does not exist");
@@ -99,7 +99,7 @@ namespace FileHandler.Services
 
     public LoginUserResponse SetNewPassword(SetNewPassword data)
     {
-      var user = dbContext.Users.Where(x => x.Email == data.Email).First();
+      var user = dbContext.Users.Where(x => x.Email == data.Email).FirstOrDefault();
       if (user == null)
       {
         throw new Exception("User does not exist");
