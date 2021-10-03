@@ -11,7 +11,7 @@ namespace FileHandler.Auth
     private readonly string key;
     private readonly int expiresIn = Int32.Parse(Environment.GetEnvironmentVariable("JWT_EXPIRES_IN_HOURS"));
 
-    public JwtAuthenticationService (string key)
+    public JwtAuthenticationService(string key)
     {
       this.key = key;
     }

@@ -14,7 +14,7 @@ namespace FileHandler.Dto
     public string Password { get; set; }
   }
 
-  public class RegisterUserResponse 
+  public class RegisterUserResponse
   {
     public bool Success { get; set; }
   }

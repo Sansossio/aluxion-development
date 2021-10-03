@@ -34,7 +34,7 @@ namespace FileHandler.Services
       return fileName;
     }
 
-    public async Task<GetObjectResponse> Download (string path)
+    public async Task<GetObjectResponse> Download(string path)
     {
       var request = new GetObjectRequest
       {

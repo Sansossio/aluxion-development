@@ -24,7 +24,8 @@ namespace FileHandler.Services
       return JsonConvert.DeserializeObject<UnsplashSearchResponse>(response.Content);
     }
 
-    public async Task<UnsplashSearchResponse> SearchImages (string query) {
+    public async Task<UnsplashSearchResponse> SearchImages(string query)
+    {
       return await this.request("search/photos", query);
     }
   }

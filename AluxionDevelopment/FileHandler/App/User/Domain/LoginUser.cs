@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FileHandler.Dto
 {
-  public class LoginUser: RegisterUser
+  public class LoginUser : RegisterUser
   {
   }
 
