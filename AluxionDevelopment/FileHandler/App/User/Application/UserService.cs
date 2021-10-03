@@ -50,7 +50,7 @@ namespace FileHandler.Services
         throw new Exception("User does not exist");
       }
       return new LoginUserResponse {
-        Token = this.authService.Authenticate(user.ID)
+        Token = $"Bearer {this.authService.Authenticate(user.Email)}"
       };
     }
   }

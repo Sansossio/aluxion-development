@@ -16,7 +16,7 @@ namespace FileHandler.Auth
       this.key = key;
     }
 
-    public string Authenticate(int UserId)
+    public string Authenticate(string Email)
     {
       var tokenHandler = new JwtSecurityTokenHandler();
       var tokenKey = Encoding.ASCII.GetBytes(this.key);
@@ -24,7 +24,7 @@ namespace FileHandler.Auth
       {
         Subject = new ClaimsIdentity(new Claim[]
           {
-            new Claim(ClaimTypes.Name, UserId.ToString())
+            new Claim(ClaimTypes.Email, Email)
           }),
         Expires = DateTime.UtcNow.AddHours(this.expiresIn),
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)

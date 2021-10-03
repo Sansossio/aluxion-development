@@ -101,17 +101,16 @@ namespace FileHandler
 
       app.UseHttpsRedirection();
 
-      app.UseRouting();
-
-      app.UseAuthorization();
-      app.UseAuthentication();
-
       app.UseSwagger();
 
       app.UseSwaggerUI(c =>
         {
           c.SwaggerEndpoint("v1/swagger.json", "Aluxion - File Handler");
         });
+
+      app.UseAuthentication();
+      app.UseRouting();
+      app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
       {
