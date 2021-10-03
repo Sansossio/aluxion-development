@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FileHandler.Models;
 using FileHandler.Services;
+using FileHandler.Dto;
 
 namespace FileHandler.Controllers
 {
@@ -21,10 +22,9 @@ namespace FileHandler.Controllers
       this.service = service;
     }
 
-    [HttpGet("list")]
-    public List<User> UserList()
-    {
-      return this.service.UserList();
+    [HttpPost("register")]
+    public RegisterUserResponse Register ([FromBody] RegisterUser data) {
+      return this.service.Register(data);
     }
   }
 }
