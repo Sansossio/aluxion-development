@@ -34,6 +34,8 @@ namespace FileHandler
     {
       services.AddScoped<UserService>();
       services.AddScoped<FileService>();
+      services.AddScoped<UnsplashService>();
+      services.AddScoped<ImagesService>();
       services.AddScoped<S3>();
 
       services.AddControllers();
