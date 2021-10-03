@@ -20,3 +20,10 @@ Local swagger url: [https://localhost:5001/swagger/index.html](https://localhost
 Local smtp mock url: [http://localhost:8092/](http://localhost:8092/)
 - user = aluxion
 - password = m41ler
+
+## Unit tests
+
+```sh
+cd AluxionDevelopment
+dotnet test
+```
