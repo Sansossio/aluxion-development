@@ -39,7 +39,12 @@ namespace FileHandler.Services
 
     public FileItemResponse GetById(int id)
     {
-      return FileItemResponse.FromEntity(this.dbContext.Files.FirstOrDefault(x => x.ID == id));
+      var file = this.dbContext.Files.FirstOrDefault(x => x.ID == id);
+      if (file == null)
+      {
+        throw new Exception("File not found");
+      }
+      return FileItemResponse.FromEntity(file);
     }
 
     public FileItemResponse UpdateName(int id, string name, User user)

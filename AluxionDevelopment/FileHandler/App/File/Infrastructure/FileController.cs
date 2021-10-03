@@ -97,6 +97,10 @@ namespace FileHandler.Controllers
     [HttpPost("upload")]
     public async ValueTask<FileItemResponse> UploadFileToS3(IFormFile file)
     {
+      if (file == null)
+      {
+        throw new Exception("Bad request");
+      }
       var user = this.userService.GetUserByClaim(this.User);
       return await this.service.UploadFile(file, user);
     }
