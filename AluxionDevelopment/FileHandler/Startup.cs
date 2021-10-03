@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using FileHandler.Services;
 
 namespace FileHandler
 {
@@ -33,8 +34,8 @@ namespace FileHandler
           c.SwaggerDoc("v1", new OpenApiInfo { Title = "File Handler", Version = "v1" });
         });
 
-      services.AddScoped<DatabaseContext>(_ =>
-                new DatabaseContext());
+      services.AddScoped<DatabaseContext>(_ => new DatabaseContext());
+      services.AddScoped<UserService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
