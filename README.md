@@ -17,6 +17,6 @@ Install dependencies and then use VsCode launch.
 Local swagger url: [https://localhost:5001/swagger/index.html](https://localhost:5001/swagger/index.html)
 
 ### Smtp mock
-Local smtp mock url: [http://localhost:8092/])(http://localhost:8092/)
+Local smtp mock url: [http://localhost:8092/](http://localhost:8092/)
 - user = aluxion
 - password = m41ler
