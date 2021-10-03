@@ -6,6 +6,7 @@ namespace FileHandler.Dto
   public class UnsplashPhoto
   {
     public string id { get; set; }
+    public string description { get; set; }
     public string created_at { get; set; }
     public string updated_at { get; set; }
     public UnsplashPhotoExif urls { get; set; }

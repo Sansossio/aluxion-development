@@ -25,10 +25,9 @@ namespace FileHandler.Controllers
 
     [HttpGet("search")]
     [AllowAnonymous]
-    public async Task<List<ExternalImage>> Search ()
+    public async Task<List<ExternalImage>> Search ([FromQuery] GetImagesQuery data)
     {
-      var query = "cats";
-      return await this.service.Search(query);
+      return await this.service.Search(data.query);
     }
   }
 }
