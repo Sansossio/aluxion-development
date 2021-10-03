@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FileHandler.Models;
+using FileHandler.Services;
 
 namespace FileHandler.Dto
 {
@@ -8,6 +9,8 @@ namespace FileHandler.Dto
     public int ID { get; set; }
     public string Name { get; set; }
     public string Path { get; set; }
+    public string Url { get; set; }
+
 
     public static List<FileItemResponse> FromEntity (List<File> files) 
     {
@@ -25,7 +28,8 @@ namespace FileHandler.Dto
       {
         ID = data.ID,
         Name = data.Name,
-        Path = data.Path
+        Path = data.Path,
+        Url = new S3().GetFileUrl(data.Path)
       };
     }
   }

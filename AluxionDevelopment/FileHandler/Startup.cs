@@ -34,6 +34,7 @@ namespace FileHandler
     {
       services.AddScoped<UserService>();
       services.AddScoped<FileService>();
+      services.AddScoped<S3>();
 
       services.AddControllers();
       services.AddSwaggerGen(c =>
