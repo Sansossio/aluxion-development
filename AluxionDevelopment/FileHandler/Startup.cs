@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace FileHandler
 {
@@ -26,6 +27,10 @@ namespace FileHandler
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
+      services.AddSwaggerGen(c =>
+        {
+          c.SwaggerDoc("v1", new OpenApiInfo { Title = "File Handler", Version = "v1" });
+        });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +46,13 @@ namespace FileHandler
       app.UseRouting();
 
       app.UseAuthorization();
+
+      app.UseSwagger();
+
+      app.UseSwaggerUI(c =>
+        {
+          c.SwaggerEndpoint("v1/swagger.json", "Aluxion - File Handler");
+        });
 
       app.UseEndpoints(endpoints =>
       {
