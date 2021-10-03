@@ -7,9 +7,11 @@ To see test details click [here](./TEST-DETAILS.md)
 ## Run
 
 ### Run services
+This project needs to have a database in postgres and a smtp server, in this case I have used a smtp mock to simplify. Just use:
 ```sh
 docker-compose up -d
 ```
+
 ### Run project
 Install dependencies and then use VsCode launch.
 
