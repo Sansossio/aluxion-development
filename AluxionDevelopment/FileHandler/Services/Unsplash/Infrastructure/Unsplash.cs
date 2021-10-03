@@ -19,8 +19,7 @@ namespace FileHandler.Services
         .AddParameter("client_id", this.clientId)
         .AddParameter("query", query);
       IRestResponse response = await client.ExecuteAsync(request);
-      var aa = JsonConvert.DeserializeObject<UnsplashSearchResponse>(response.Content);
-      Console.WriteLine(response.Content);
+
       return JsonConvert.DeserializeObject<UnsplashSearchResponse>(response.Content);
     }
 
