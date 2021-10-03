@@ -22,6 +22,18 @@ namespace FileHandler.Controllers
       this.service = service;
     }
 
+    [HttpPost("forgot-password")]
+    public ForgotPasswordResponse ForgotPassword([FromBody] ForgotPassword data)
+    {
+      return this.service.ForgotPassword(data);
+    }
+
+    [HttpPost("forgot-password/set-new-password")]
+    public LoginUserResponse SetNewPassword([FromBody] SetNewPassword data)
+    {
+      return this.service.SetNewPassword(data);
+    }
+
     [HttpPost("register")]
     public RegisterUserResponse Register([FromBody] RegisterUser data)
     {

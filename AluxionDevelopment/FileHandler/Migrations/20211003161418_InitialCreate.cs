@@ -14,7 +14,8 @@ namespace FileHandler.Migrations
                     ID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Email = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: true)
+                    Password = table.Column<string>(type: "text", nullable: true),
+                    VerificationCode = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

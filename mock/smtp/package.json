@@ -1,0 +1,15 @@
+{
+  "name": "mock-smtp",
+  "version": "1.48.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fake-smtp-server": "^0.8.0"
+  }
+}

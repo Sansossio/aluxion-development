@@ -54,6 +54,9 @@ namespace FileHandler.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("text");
 
+                    b.Property<string>("VerificationCode")
+                        .HasColumnType("text");
+
                     b.HasKey("ID");
 
                     b.ToTable("Users");

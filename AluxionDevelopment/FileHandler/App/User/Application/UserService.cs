@@ -59,5 +59,50 @@ namespace FileHandler.Services
       var email = currentUser.FindFirst(ClaimTypes.Email).Value;
       return dbContext.Users.Where(x => x.Email == email).First();
     }
+
+    public ForgotPasswordResponse ForgotPassword (ForgotPassword data) {
+      var user = dbContext.Users.Where(x => x.Email == data.Email).First();
+      if (user == null) {
+        throw new Exception("User does not exist");
+      }
+      var verificationCode = Guid.NewGuid().ToString();
+      user.VerificationCode = verificationCode;
+
+      string subject = "Reset Password";
+      string body = $"Verification code to restart your password is: {verificationCode}";
+
+      MailService.Send(new SendMail {
+        To = data.Email,
+        Subject = subject,
+        Body = body
+      });
+
+      dbContext.SaveChanges();
+
+      return new ForgotPasswordResponse {
+        Success = true,
+        Message = "Verification code sent, check your email (or smtp mock if you are in local)"
+      };
+    }
+
+    public LoginUserResponse SetNewPassword (SetNewPassword data) {
+      var user = dbContext.Users.Where(x => x.Email == data.Email).First();
+      if (user == null) {
+        throw new Exception("User does not exist");
+      }
+      if (user.VerificationCode != data.VerificationCode) {
+        throw new Exception("Verification code is not valid");
+      }
+      var finalPassword = Cryptography.Crypto.Encrypt(data.NewPassword);
+      user.Password = finalPassword;
+      user.VerificationCode = null;
+
+      dbContext.SaveChanges();
+
+      return this.Login(new LoginUser {
+        Email = data.Email,
+        Password = data.NewPassword
+      });
+    }
   }
 }

@@ -17,3 +17,15 @@ services:
       - "5432:5432"
     volumes:
       - data:/var/lib/postgresql/data
+
+  mock-smtp:
+    container_name: mock-smtp
+    image: mock-smtp
+    build:
+      context: ./mock/smtp
+      dockerfile: Dockerfile
+    env_file:
+      - ./mock/smtp/local.env
+    ports:
+      - "8092:1080"
+      - "1025:1025"

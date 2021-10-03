@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FileHandler.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211003125418_InitialCreate")]
+    [Migration("20211003161418_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,9 @@ namespace FileHandler.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("VerificationCode")
                         .HasColumnType("text");
 
                     b.HasKey("ID");
