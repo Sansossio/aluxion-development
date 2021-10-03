@@ -33,6 +33,7 @@ namespace FileHandler
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddScoped<UserService>();
+      services.AddScoped<FileService>();
 
       services.AddControllers();
       services.AddSwaggerGen(c =>

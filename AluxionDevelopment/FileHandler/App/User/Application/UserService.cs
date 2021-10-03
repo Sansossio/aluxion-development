@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,11 @@ namespace FileHandler.Services
       return new LoginUserResponse {
         Token = $"Bearer {this.authService.Authenticate(user.Email)}"
       };
+    }
+
+    public User GetUserByClaim (ClaimsPrincipal currentUser) {
+      var email = currentUser.FindFirst(ClaimTypes.Email).Value;
+      return dbContext.Users.Where(x => x.Email == email).First();
     }
   }
 }
